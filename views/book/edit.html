@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Favorite Book App</title>
+    <style>
+        .container {
+            max-width: 650px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+        <h3>Update Your Book</h3>
+        <a href="/book" class="btn btn-sm btn-primary">Book List</a>
+        <hr />
+
+        {{ if .message }}
+            <div class="alert alert-success">
+                {{ .message }}
+            </div>
+        {{ end }}
+
+        <form action="/book/edit" method="post">
+            <!-- BOOK TITLE -->
+            <div class="form-group">
+                <label for="">Book Title</label>
+                <input type="text" name="book_title" value="{{ .book.BookTitle }}" class="form-control {{ if .validation.BookTitle }} is-invalid {{ end }}">
+                <div class="invalid-feedback">
+                    {{ .validation.BookTitle }}
+                </div>
+            </div>
+
+            <!-- BOOK AUTHOR -->
+            <div class="form-group">
+                <label for="">Book Author</label>
+                <input type="text" name="book_author" value="{{ .book.BookAuthor }}" class="form-control">
+            </div>
+
+            <!-- BOOK YEAR -->
+            <div class="form-group">
+                <label for="">Book Year</label>
+                <input type="text" name="book_year" value="{{ .book.BookYear }}" class="form-control">
+            </div>
+
+            <!-- BOOK DESCRIPTION -->
+            <div class="form-group">
+                <label for="">Book Description</label>
+                <textarea name="book_description" value="{{ .book.BookDescription }}" class="form-control">{{ .book.BookDescription }}</textarea>
+            </div>
+
+            <!-- BOOK RATING -->
+            <div class="form-group">
+                <label for="">Book Rating</label>
+                <select name="book_rating" class="form-control {{ if .validation.BookRating }} is-invalid {{ end }}">
+                    <option value="">Rate Your Book</option>
+                    <option {{ if eq .book.BookRating `1`}} selected {{ end }} value="1">Terrible⭐</option>
+                    <option {{ if eq .book.BookRating `2`}} selected {{ end }} value="2">Poor⭐⭐</option>
+                    <option {{ if eq .book.BookRating `3`}} selected {{ end }} value="3">Average⭐⭐⭐</option>
+                    <option {{ if eq .book.BookRating `4`}} selected {{ end }} value="4">Good⭐⭐⭐⭐</option>
+                    <option {{ if eq .book.BookRating `5`}} selected {{ end }} value="5">Excellent⭐⭐⭐⭐⭐</option>
+                </select>
+                <div class="invalid-feedback">
+                    {{ .validation.BookRating }}
+                </div>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <div class="form-group">
+                    <input type="hidden" name="id" value="{{ .book.Id }}">
+                    <button class="btn btn-primary btn-block" type="submit">UPDATE</button>
+                </div>
+        </form>
+        
+        
+
+
+    </div>
+  </body>
+</html>

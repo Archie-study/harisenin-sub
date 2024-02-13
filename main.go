@@ -1,25 +1,19 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/harisenin-sub/initializers"
+	"net/http"
+
+	"github.com/Archie-study/harisenin-sub/controllers/bookcontroller"
 )
 
-func init() {
-	initializers.LoadEnvVariables()
-	initializers.ConnectToDB()
-}
-
 func main() {
-	// fmt.Println("Hello Archie123")
 
-	r := gin.Default()
+	http.HandleFunc("/", bookcontroller.Index)
+	http.HandleFunc("/book", bookcontroller.Index)
+	http.HandleFunc("/book/index", bookcontroller.Index)
+	http.HandleFunc("/book/add", bookcontroller.Add)
+	http.HandleFunc("/book/edit", bookcontroller.Edit)
+	http.HandleFunc("/book/delete", bookcontroller.Delete)
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Heyuuuu pong",
-		})
-	})
-
-	r.Run()
+	http.ListenAndServe(":3001", nil)
 }
